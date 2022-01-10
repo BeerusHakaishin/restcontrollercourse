@@ -62,6 +62,5 @@ public class Article {
 	public void setCreation(Date creation) {
 		this.creation = creation;
 	}
-	
-	
+		
 }
