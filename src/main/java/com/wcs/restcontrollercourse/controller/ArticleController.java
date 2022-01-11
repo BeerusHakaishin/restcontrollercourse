@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,7 +83,7 @@ public class ArticleController {
 	// Delete article
 	//// http://localhost:8080/articles/{id}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteArticle(@PathVariable(required = true) Long id) {
+	public void deleteArticle(@PathVariable(required = true) Long id) {
 		Boolean exist = articleRepository.existsById(id);
 		// Si mon article n'xiste pas , je renvoie une erreur
 		if (!exist) {
@@ -92,8 +91,6 @@ public class ArticleController {
 		}
 		// Si il existe je le supprime de la Base de Données
 		articleRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-
 	}
 
 }
