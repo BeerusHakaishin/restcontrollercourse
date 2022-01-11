@@ -71,7 +71,7 @@ public class ArticleController {
 		if (optArticle.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-
+		// On modifie l'entité
 		Article article = optArticle.get();
 		article.setTitle(articleDto.getTitle());
 		article.setContent(articleDto.getContent());
@@ -80,6 +80,7 @@ public class ArticleController {
 	}
 
 	// Delete article
+	// http://localhost:8080/articles/{id}
 	@DeleteMapping("/{id}")
 	public boolean delete(@PathVariable Long id) {
 		articleRepository.deleteById(id);
