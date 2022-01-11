@@ -45,7 +45,7 @@ public class ArticleController {
 		if (optArticle.isPresent()) {
 			return optArticle.get();
 		}
-		// Si mon objet n'est pas présence je lance une exception
+		// Si mon objet n'est pas présent je lance une exception
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	}
 
@@ -53,21 +53,22 @@ public class ArticleController {
 	//// http://localhost:8080/articles
 	@PostMapping
 	public Article createArticle(@Valid @RequestBody ArticleDto articleDto) {
+		// On crée l'entité
 		Article article = new Article();
 		article.setTitle(articleDto.getTitle());
 		article.setContent(articleDto.getContent());
 		article.setCreation(new Date());
-
+		// On enregistre l'entité dans la Base de Données
 		return articleRepository.save(article);
 	}
 
 	// Update article
-	// http://localhost:8080/articles/{id}
+	//// http://localhost:8080/articles/{id}
 	@PutMapping("/{id}")
 	public Article updateArticle(@Valid @RequestBody ArticleDto articleDto, @PathVariable(required = true) Long id) {
 
 		Optional<Article> optArticle = articleRepository.findById(id);
-		// Si mon objet optionnel contient pas d' article ,je renvoie une erreur
+		// Si mon objet optionnel contient pas d'article ,je renvoie une erreur
 		if (optArticle.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -75,12 +76,12 @@ public class ArticleController {
 		Article article = optArticle.get();
 		article.setTitle(articleDto.getTitle());
 		article.setContent(articleDto.getContent());
-
+		// On enregistre l'entité dans la Base de Données
 		return articleRepository.save(article);
 	}
 
 	// Delete article
-	// http://localhost:8080/articles/{id}
+	//// http://localhost:8080/articles/{id}
 	@DeleteMapping("/{id}")
 	public boolean delete(@PathVariable Long id) {
 		articleRepository.deleteById(id);
